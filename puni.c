@@ -4,24 +4,6 @@
 #define WIDTH 640
 #define HEIGHT 480
 
-//あらかじめ描画する座標を2次元配列として作っておく
-static double myTriangle1[3][3] = {
-    {0.8, 0.1, 0.0},
-    {-0.3, -0.2, 0.0},
-    {0.4, -0.8, 0.0},
-};
-
-static double myTriangle2[3][3] = {
-    {0.5, 0.0, 0.0}, //Z座標は0とする
-    {-0.5, -0.3, 0.9},
-    {0.2, -0.4, 0.8},
-};
-
-//アニメーションのための移動幅の指定
-static double myTriangle1TranslateX = 0.0;
-static double myTriangle1TranslateY = 0.0;
-static double myTriangle2RotateAngle = 0;
-
 static void display(void) {
     //背景を塗りつぶす
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -73,11 +55,6 @@ static void resize(int windowWidth, int windowHeight) {
 }
 
 static void timer(int _){
-    //移動アニメーションに使うグローバル変数を増加させる
-    myTriangle1TranslateX += 0.05;
-    myTriangle1TranslateY += 0.05;
-    myTriangle2RotateAngle += 3;
-    
     glutPostRedisplay();
     //この関数自身を100ms後に呼び出す指定
     glutTimerFunc(100, timer, 0);
