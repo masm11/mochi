@@ -30,8 +30,8 @@ static void display(void) {
     glMatrixMode(GL_PROJECTION); 
     glLoadIdentity(); //投影変換の変換行列を単位行列で初期化
     //各軸-1.0～1.0で囲まれる立方体の範囲にあるモノを垂直方向へ並行投影
-    glOrtho(-1.0, 1.0, //X軸は-1.0から1.0の範囲
-	    -1.0, 1.0, //Y軸は-1.0から1.0の範囲
+    glOrtho(-WIDTH / 2, WIDTH / 2,
+	    -HEIGHT / 2, HEIGHT / 2,
 	    1.0, -1.0); //Z軸は……
     //垂直方向へ平行投影なので，
     //何もしないとカメラは(0.0, 0.0, 無限遠)から原点(0.0, 0.0, 0.0)を見ている状態になる
@@ -43,46 +43,26 @@ static void display(void) {
     //------ここから下でモデル・オブジェクトの描画をする-----------------
     
     //これから描く線の色を指定する(RGBA)
+    glColor4f(1.0, 1.0, 1.0, 0.0);
+    
+    // 本体
+    glBegin(GL_QUADS);
+    glVertex3d(   0, -180, 0); //X座標，Y座標，Z座標: Z座標は0
+    glVertex3d(   0,  180, 0);
+    glVertex3d( 180,  180, 0);
+    glVertex3d( 180, -180, 0);
+    glEnd();
+    
     glColor4f(1.0, 0.0, 0.0, 0.0);
     
-    //線のみの三角形を描く
-    glBegin(GL_LINE_LOOP);
-    glVertex3d(-0.9, -0.9, 0.0); //X座標，Y座標，Z座標: Z座標は0
-    glVertex3d(-0.9, 0.0, 0.0);
-    glVertex3d(0.9, 0.9, 0.0);
+    // 鼻
+    glBegin(GL_QUADS);
+    glVertex3d(-180,   0, 0); //X座標，Y座標，Z座標: Z座標は0
+    glVertex3d(-180, 180, 0);
+    glVertex3d(   0, 180, 0);
+    glVertex3d(   0,   0, 0);
     glEnd();
     
-    
-    //ここからglPopMatrixが実行されるまでひとまとまりの変換と描画を行うよ，という指定
-    glPushMatrix();
-    //これから描画するものは，原点から値分だけ移動させますよ，という命令
-    glTranslatef(myTriangle1TranslateX, myTriangle1TranslateY, 0.0);
-    //新たに線の色を指定する
-    glColor4f(0.0, 1.0, 0.0, 0.0);
-    //あらかじめ作っておいた頂点配列を描画する．
-    glBegin(GL_LINE_LOOP);
-    for (int i=0; i<3; i++){
-	glVertex3d(myTriangle1[i][0], myTriangle1[i][1], myTriangle1[i][2]);
-    }
-    glEnd();
-    glPopMatrix();
-    
-    //またひとまとまりの変換と描画を行うよ，という指定
-    glPushMatrix();
-    
-    //原点からx:0.0, y:0.0, z:1.0を結ぶ線を軸として，
-    //myTriangle2RotateAngle変数の中身分だけ回転させますよ，という命令
-    glRotatef(myTriangle2RotateAngle, 0.0, 0.0, 1.0);
-    
-    //新たに色を指定する
-    glColor4f(0.0, 0.0, 1.0, 0.0);
-    //今度は塗りつぶす三角形
-    glBegin(GL_TRIANGLES);
-    for (int i=0; i<3; i++){
-	glVertex3d(myTriangle2[i][0], myTriangle2[i][1], myTriangle2[i][2]);
-    }
-    glEnd();
-    glPopMatrix();
     //-----------モデルの描画ここまで-------------------
     
     glutSwapBuffers();
