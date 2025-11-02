@@ -88,11 +88,11 @@ static void display(void) {
     glutSwapBuffers();
 }
 
-void resize(int windowWidth, int windowHeight) {
+static void resize(int windowWidth, int windowHeight) {
     glViewport(0, 0, windowWidth, windowHeight); //ウインドウ全体に表示
 }
 
-void timer(int _){
+static void timer(int _){
     //移動アニメーションに使うグローバル変数を増加させる
     myTriangle1TranslateX += 0.05;
     myTriangle1TranslateY += 0.05;
