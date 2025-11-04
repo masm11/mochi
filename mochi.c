@@ -71,7 +71,7 @@ static void resize(int windowWidth, int windowHeight) {
 
 static void timer(int _){
     glutPostRedisplay();
-    //この関数自身を100ms後に呼び出す指定
+    //この関数自身を17ms後に呼び出す指定
     glutTimerFunc(17, timer, 0);
 }
 
